@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Create and complete study goals on the Sepolia blockchain.">
+  <title>StudyPulse · On-chain study goals</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1020'/%3E%3Cpath d='M14 34h9l5-16 8 30 6-14h8' fill='none' stroke='%237cfdc5' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" defer></script>
+  <script src="/config.js" defer></script>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="StudyPulse home">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span>StudyPulse</span>
+    </a>
+    <button class="wallet-button" id="connectButton" type="button">Connect wallet</button>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow"><span></span> SEPOLIA TESTNET</p>
+        <h1 id="page-title">Turn intention<br>into proof.</h1>
+        <p class="lede">Create a study goal, set a deadline, and keep the result on-chain.</p>
+      </div>
+      <div class="pulse-visual" aria-hidden="true">
+        <div class="orb"><span>✓</span></div>
+        <svg viewBox="0 0 420 120" preserveAspectRatio="none"><path d="M0 72 L74 72 L98 24 L134 104 L174 50 L207 72 L420 72"/></svg>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Study goal workspace">
+      <article class="composer card">
+        <div class="section-heading">
+          <div><span class="step">01</span><h2>Create a goal</h2></div>
+          <span class="network-pill" id="networkPill">Preview mode</span>
+        </div>
+        <form id="goalForm">
+          <label for="goalTitle">What will you finish?</label>
+          <input id="goalTitle" name="title" maxlength="80" minlength="3" placeholder="e.g. Review smart contract events" required>
+          <label for="goalDeadline">Deadline</label>
+          <input id="goalDeadline" name="deadline" type="datetime-local" required>
+          <button class="primary-button" id="createButton" type="submit">Publish goal</button>
+          <p class="form-note" id="formNote">Connect MetaMask to publish on Sepolia. You can explore the preview first.</p>
+        </form>
+      </article>
+
+      <article class="feed card">
+        <div class="section-heading feed-heading">
+          <div><span class="step">02</span><h2>Community pulse</h2></div>
+          <button class="icon-button" id="refreshButton" type="button" aria-label="Refresh goals" title="Refresh">↻</button>
+        </div>
+        <div class="stats" aria-label="Goal statistics">
+          <div><strong id="totalCount">0</strong><span>Total goals</span></div>
+          <div><strong id="completeCount">0</strong><span>Completed</span></div>
+          <div><strong id="activeCount">0</strong><span>In progress</span></div>
+        </div>
+        <div id="goalList" class="goal-list" aria-live="polite"></div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: studypulse-dapp
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: CONTRACT_ADDRESS
+        sync: false
+      - key: SEPOLIA_RPC_URL
+        value: https://ethereum-sepolia-rpc.publicnode.com
